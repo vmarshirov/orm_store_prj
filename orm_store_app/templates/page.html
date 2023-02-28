@@ -1,0 +1,33 @@
+{% extends 'layout.html' %}
+
+{% block title %}orm_store_page{% endblock %}
+
+{% block content %}
+    <h5>orm_store_page</h5>
+    <p>
+        <p>context_0: {{ context_0.objects_list }}
+        </p>
+        {% for object in context_0.objects_list %}
+            <li>{{ object.id }}: {{ object.name }}
+            <a href="{% url 'orm_store_app:page' pk=object.id %}">{{ object.name }}</a>
+            </li>
+        {% endfor %}
+    </p>
+
+    <h5>orm_abc_app:table</h5>
+    <br>context_1: {{ context_1.rows }}
+    <table class="table table-bordered">
+        <tbody style="border-top: 3.0px;">
+        {% for row in context_1.rows %}
+            <tr>
+                {% for item in row %}
+                    <td>
+                        {{ item }}
+                    </td>
+                {% endfor %}
+            </tr>
+        {% endfor %}
+        <tbody>
+    </table>
+
+{% endblock %}
