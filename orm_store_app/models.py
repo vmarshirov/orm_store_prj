@@ -6,7 +6,7 @@ class Category(models.Model):
     name = models.CharField('Категория', max_length=255)
 
     class Meta:
-        ordering = ('name',)
+        ordering = ('id',)
         verbose_name_plural = 'Категории'
 
     def __str__(self):
@@ -18,12 +18,12 @@ class Item(models.Model):
     name = models.CharField('Название', max_length=255)
     description = models.TextField('Описание', blank=True, null=True)
     price = models.FloatField('Цена', )
-    image = models.ImageField(upload_to='static/images', blank=True, null=True)
+    image = models.ImageField(upload_to='orm_store_app/static/item_images', blank=True, null=True)
     is_sold = models.BooleanField('Проданы', default=False)
 
     class Meta:
         ordering = ('name',)
-        verbose_name_plural = 'Названия'
+        verbose_name_plural = 'Товары'
 
     def __str__(self):
         return '%s %s' % (self.category, self.name)

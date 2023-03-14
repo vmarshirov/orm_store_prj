@@ -11,8 +11,8 @@ urlpatterns = [
     # path('form_result/', views.form_result, name='form_result'),
     # path("store_result/", views.store_result, name="websiteApp-store_result"),
     path('category/', views.category, name='category'),
-    path('table/<int:pk>', views.table, name='table'),
-    path('page/<int:pk>', views.page, name='page'),
+    path('table/<int:id>', views.table, name='table'),
+    path('page/<int:id>', views.page, name='page'),
     # path("store/", views.store),
 
 ]

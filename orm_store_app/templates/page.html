@@ -3,28 +3,26 @@
 {% block title %}orm_store_page{% endblock %}
 
 {% block content %}
-    <h5>orm_store_page</h5>
-    <p>
-        <p>context_0: {{ context_0.objects_list }}
-        </p>
-        {% for object in context_0.objects_list %}
+    <h6>Category</h6>
+    <p>category_context.category: {{ category_context.category }}</p>
+    <ul>
+        {% for object in category_context.category %}
             <li>{{ object.id }}: {{ object.name }}
-            <a href="{% url 'orm_store_app:page' pk=object.id %}">{{ object.name }}</a>
+                <a href="{% url 'orm_store_app:page' id=object.id %}">{{ object.name }}</a>
             </li>
         {% endfor %}
-    </p>
+    </ul>
 
-    <h5>orm_abc_app:table</h5>
-    <br>context_1: {{ context_1.rows }}
+    {% load static %}
+    <h6>Table</h6>
+    <p>items_context.items: {{ items_context.items }}</p>
     <table class="table table-bordered">
         <tbody style="border-top: 3.0px;">
-        {% for row in context_1.rows %}
+        {% for item in items_context.items %}
             <tr>
-                {% for item in row %}
-                    <td>
-                        {{ item }}
-                    </td>
-                {% endfor %}
+                <td>{{ item.name }}</td>
+                <td>{{ item.description }}</td>
+                <td><img src="{% static item.image %}" width="200px>"></td>
             </tr>
         {% endfor %}
         <tbody>
