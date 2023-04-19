@@ -4,28 +4,35 @@
 
 {% block content %}
     <h6>Category</h6>
-    <p>category_context.category: {{ category_context.category }}</p>
+{#    <p>category: {{ category }}</p>#}
     <ul>
-        {% for object in category_context.category %}
-            <li>{{ object.id }}: {{ object.name }}
-                <a href="{% url 'orm_store_app:page' id=object.id %}">{{ object.name }}</a>
+        {% for object in category %}
+            <li>
+{#                {{ object.id }}: {{ object.name }}#}
+                <a href="{% url 'orm_store_app:page' pk=object.id %}">{{ object.name }}</a>
             </li>
         {% endfor %}
     </ul>
 
     {% load static %}
-    <h6>Table</h6>
-    <p>items_context.items: {{ items_context.items }}</p>
-    <table class="table table-bordered">
-        <tbody style="border-top: 3.0px;">
-        {% for item in items_context.items %}
-            <tr>
-                <td>{{ item.name }}</td>
-                <td>{{ item.description }}</td>
-                <td><img src="{% static item.image %}" width="200px>"></td>
-            </tr>
-        {% endfor %}
-        <tbody>
-    </table>
-
+     <div class="card">
+        <div class="card-body">
+            {#            <form action="https://www.bing.com/search" id="UserEnter" name="UserEnter" target="_blank">#}
+            <form action="{% url 'orm_store_app:store_result' %}" id="UserEnter" name="UserEnter" target="_self">
+                <ul class="d-flex flex-row flex-wrap ">
+                    {% for item in items %}
+                        <li class="m-2 list-group-item bg-light border p-3">
+                            <img src="{% static item.image %}" width="200px>">
+                            <h6>{{ item.name }}</h6>
+                            <p>{{ item.description }}. Цена: {{ item.price }}р.
+                                <input name="vendor_code" type="hidden" value={{ item.vendor_code }}>
+                                <br>Заказать<input style=" width: 2.0rem;" name="amount" type="text" value=0> шт.
+                            </p>
+                        </li>
+                    {% endfor %}
+                </ul>
+                <button class="btn btn-primary" type="submit">Отправить</button>
+            </form>
+        </div>
+    </div>
 {% endblock %}

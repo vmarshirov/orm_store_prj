@@ -7,11 +7,13 @@
     <h5>orm_store_table</h5>
     <table class="table table-bordered">
         <tbody style="border-top: 3.0px;">
-        {% for row in rows %}
+{#        <p>objects_list: {{ objects_list }}</p>#}
+        {% for object in objects_list %}
+{#            <br>object: {{ object }}#}
             <tr>
-                {% for item in row %}
+                {% for key, value in object.items %}
                     <td>
-                        {{ item }}
+                        {{ value }}
                     </td>
                 {% endfor %}
 

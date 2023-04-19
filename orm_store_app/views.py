@@ -11,11 +11,11 @@ def index(request):
     return render(request, 'index.html')
 
 
-def table(request, id):
-    rows = Item.objects.filter(category_id__gt=id)
-    print("id: ", id)
-    print(rows.values_list())
-    context = {'rows': rows.values_list()}
+def table(request, pk):
+    print("pk: ", pk)
+    objects_list = Item.objects.filter(category_id__gt=pk).values().order_by('-category_id')
+    print('objects_list: ', objects_list)
+    context = {'objects_list': objects_list}
     return render(request, 'table.html', context)
 
 def category(request):
@@ -25,19 +25,27 @@ def category(request):
     context={'objects_list': list(objects)}
     return render(request, 'category.html', context)
 
-def page(request, id):
+def page(request, pk):
     # from orm_store_app.models import  Category, Item
     category = Category.objects.values()
     print("category:\n", category)
-    category_context = {'category': category}
+    # category = {'category': category}
 
-    items = Item.objects.values().filter(category=id)
-    print("items:\n", items)
-    for i in items:
-        lst= list((i['image'].split('/'))[-2:])
+    items = Item.objects.values().filter(category=pk)
+    print("\nitems:\n", items)
+    for item in items:
+        print('\nitem: ', item)
+        lst= list((item['image'].split('/'))[-2:])
         img_value = (lst[0] + '/' + lst[1])
-        print (img_value)
-        i['image'] = img_value
-    items_context = {'items': items}
-    context = {"category_context": category_context, "items_context": items_context  }
+        print ('img_value: ', img_value)
+        item['image'] = img_value
+    print("items:\n", items)
+    # items = {'items': items}
+    context = {"category": category, "items": items  }
     return render(request, 'page.html', context)
+
+
+def store_result(request):
+    print(request.GET)
+    return HttpResponse(f"""
+    """)
